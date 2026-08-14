@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import {
@@ -45,6 +45,8 @@ const ProjectDecisionModal = ({
   onClose,
   project,
 }: ProjectDecisionModalProps) => {
+  const closeButtonRef = useRef<HTMLButtonElement | null>(null);
+
   // Handle ESC key and lock background scrolling.
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
@@ -59,6 +61,11 @@ const ProjectDecisionModal = ({
       document.addEventListener("keydown", handleEsc);
       document.body.style.overflow = "hidden";
       document.documentElement.style.overflow = "hidden";
+
+      // focus the close button for accessibility
+      setTimeout(() => {
+        closeButtonRef.current?.focus();
+      }, 0);
     }
 
     return () => {
@@ -107,7 +114,7 @@ const ProjectDecisionModal = ({
           animate={{ opacity: 1, scale: 1 }}
           exit={{ opacity: 0, scale: 0.95 }}
           transition={{ type: "spring", damping: 25, stiffness: 300 }}
-          className="relative w-full max-w-3xl max-h-[85vh] bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden"
+          className="relative w-full max-w-2xl max-h-[80vh] bg-card/95 backdrop-blur-2xl rounded-2xl border border-border/50 shadow-2xl overflow-hidden"
           style={{
             boxShadow:
               "0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 80px -20px hsl(var(--primary) / 0.15)",
@@ -125,8 +132,9 @@ const ProjectDecisionModal = ({
                 </h2>
               </div>
               <button
+                ref={closeButtonRef}
                 onClick={onClose}
-                className="w-10 h-10 rounded-full bg-muted/50 hover:bg-muted flex items-center justify-center transition-all duration-300 hover:scale-105 group"
+                className="w-10 h-10 rounded-full bg-muted/50 hover:bg-muted flex items-center justify-center transition-all duration-300 hover:scale-105 group focus:outline-none focus:ring-2 focus:ring-primary/40"
                 aria-label="Close modal"
               >
                 <X
@@ -138,7 +146,7 @@ const ProjectDecisionModal = ({
           </div>
 
           {/* Scrollable Content with custom scrollbar */}
-          <div className="overflow-y-auto max-h-[calc(85vh-80px)] px-6 md:px-8 py-6 modal-scrollbar">
+          <div className="overflow-y-auto max-h-[calc(80vh-80px)] px-6 md:px-8 py-6 modal-scrollbar">
             <motion.div
               variants={containerVariants}
               initial="hidden"
@@ -211,7 +219,6 @@ const ProjectDecisionModal = ({
 
               <SectionDivider />
 
-              {/* Trade-offs Section */}
               <motion.section variants={itemVariants}>
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-9 h-9 rounded-lg bg-accent/20 flex items-center justify-center">
