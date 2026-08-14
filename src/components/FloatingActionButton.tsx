@@ -5,10 +5,30 @@ import { cn } from "@/lib/utils";
 import MagneticWrapper from "@/components/MagneticWrapper";
 
 const socialLinks = [
-  { icon: Github, href: "https://github.com", label: "GitHub", color: "hover:bg-[#333] hover:text-white" },
-  { icon: Linkedin, href: "https://linkedin.com", label: "LinkedIn", color: "hover:bg-[#0077B5] hover:text-white" },
-  { icon: Mail, href: "mailto:contact@example.com", label: "Email", color: "hover:bg-primary hover:text-primary-foreground" },
-  { icon: Phone, href: "https://wa.me/1234567890", label: "WhatsApp", color: "hover:bg-[#25D366] hover:text-white" },
+  {
+    icon: Github,
+    href: "https://github.com",
+    label: "GitHub",
+    color: "hover:bg-[#333] hover:text-white",
+  },
+  {
+    icon: Linkedin,
+    href: "https://linkedin.com",
+    label: "LinkedIn",
+    color: "hover:bg-[#0077B5] hover:text-white",
+  },
+  {
+    icon: Mail,
+    href: "mailto:contact@example.com",
+    label: "Email",
+    color: "hover:bg-primary hover:text-primary-foreground",
+  },
+  {
+    icon: Phone,
+    href: "https://wa.me/1234567890",
+    label: "WhatsApp",
+    color: "hover:bg-[#25D366] hover:text-white",
+  },
 ];
 
 const FloatingActionButton = () => {
@@ -16,34 +36,40 @@ const FloatingActionButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const mainContainer = document.querySelector('.snap-y');
-    
+    const mainContainer = document.querySelector(".snap-y");
+
     const handleScroll = () => {
       const scrollTop = mainContainer?.scrollTop || window.scrollY;
       setIsVisible(scrollTop > 300);
     };
 
-    mainContainer?.addEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleScroll);
-    
+    mainContainer?.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+
     return () => {
-      mainContainer?.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('scroll', handleScroll);
+      mainContainer?.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
     };
   }, []);
 
   return (
     <div
       className={cn(
-        "fixed bottom-6 right-6 z-50 flex flex-col-reverse items-center gap-3 transition-all duration-500",
-        isVisible ? "translate-y-0 opacity-100" : "translate-y-20 opacity-0 pointer-events-none"
+        "fixed top-20 left-6 z-50 flex flex-col-reverse items-center gap-3 transition-all duration-500",
+        isVisible
+          ? "translate-y-0 opacity-100"
+          : "translate-y-20 opacity-0 pointer-events-none",
       )}
     >
       {/* Social Links */}
-      <div className={cn(
-        "flex flex-col gap-2 transition-all duration-300",
-        isOpen ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4 pointer-events-none"
-      )}>
+      <div
+        className={cn(
+          "flex flex-col gap-2 transition-all duration-300",
+          isOpen
+            ? "opacity-100 translate-y-0"
+            : "opacity-0 translate-y-4 pointer-events-none",
+        )}
+      >
         {socialLinks.map((link, index) => (
           <MagneticWrapper key={link.label} strength={0.4} radius={80}>
             <a
@@ -52,11 +78,11 @@ const FloatingActionButton = () => {
               rel="noopener noreferrer"
               className={cn(
                 "group relative flex items-center justify-center w-12 h-12 rounded-full bg-card border border-border shadow-lg transition-all duration-300",
-                link.color
+                link.color,
               )}
               style={{
-                transitionDelay: isOpen ? `${index * 50}ms` : '0ms',
-                transform: isOpen ? 'scale(1)' : 'scale(0)',
+                transitionDelay: isOpen ? `${index * 50}ms` : "0ms",
+                transform: isOpen ? "scale(1)" : "scale(0)",
               }}
             >
               <link.icon className="w-5 h-5" />
@@ -75,9 +101,9 @@ const FloatingActionButton = () => {
           size="icon"
           className={cn(
             "w-14 h-14 rounded-full shadow-xl transition-all duration-300 hover:scale-110",
-            isOpen 
-              ? "bg-destructive hover:bg-destructive/90 rotate-180" 
-              : "bg-primary hover:bg-primary/90"
+            isOpen
+              ? "bg-destructive hover:bg-destructive/90 rotate-180"
+              : "bg-primary hover:bg-primary/90",
           )}
         >
           {isOpen ? (
