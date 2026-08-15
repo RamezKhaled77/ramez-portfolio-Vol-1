@@ -146,7 +146,7 @@ const ProjectCard = ({
           onPointerMove={handlePointerMove}
           onPointerEnter={() => setShowPreview(true)}
           onPointerLeave={() => setShowPreview(false)}
-          className="w-full grid grid-cols-[64px_1fr_48px] items-center gap-4 px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 bg-background hover:bg-primary group"
+          className="w-full grid grid-cols-[64px_1fr_48px] items-center gap-4 px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 bg-card hover:bg-primary/90 group border border-border/50 hover:border-primary/30 duration-300"
         >
           {/* Number */}
           <div className="text-sm font-medium text-muted-foreground text-right pr-3 transition-colors group-hover:text-background">
@@ -160,7 +160,7 @@ const ProjectCard = ({
                 <div className="text-base font-medium text-foreground transition-colors group-hover:text-background truncate">
                   {project.title}
                 </div>
-                <div className="text-sm text-muted-foreground transition-colors group-hover:text-background/80 truncate md:block hidden">
+                <div className="text-sm font-medium text-muted-foreground transition-colors group-hover:text-background/80 truncate md:block hidden">
                   {project.context}
                 </div>
               </div>
@@ -174,14 +174,14 @@ const ProjectCard = ({
           </div>
 
           {/* Action arrow */}
-          <div className="flex items-center justify-end space-x-3">
+          <div className="flex items-center justify-end space-x-5">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-background transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground transition-colors group-hover:text-background"
                 aria-label="Open live preview"
               >
                 <ExternalLink size={16} />
@@ -194,7 +194,7 @@ const ProjectCard = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground hover:text-background transition-colors"
+                className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground transition-colors group-hover:text-background"
                 aria-label="Open source repository"
               >
                 <Github size={16} />
@@ -222,14 +222,14 @@ const ProjectCard = ({
                 ? {
                     opacity: 1,
                     scale: 1,
-                    x: previewPos.x + 20,
-                    y: previewPos.y + 28,
+                    x: previewPos.x + 40,
+                    y: previewPos.y - 150,
                   }
                 : {
                     opacity: 0,
                     scale: 0.95,
-                    x: previewPos.x + 20,
-                    y: previewPos.y + 28,
+                    x: previewPos.x + 40,
+                    y: previewPos.y - 150,
                   }
             }
             // smoother spring for a gentle, non-snappy follow

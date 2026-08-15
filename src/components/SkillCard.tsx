@@ -471,7 +471,7 @@ const SkillCard = ({ skill, index }: SkillCardProps) => {
       </div>
 
       {/* Skill name */}
-      <h3 className="text-sm font-display font-semibold text-foreground relative z-10 transition-colors duration-300 group-hover:text-primary">
+      <h3 className="text-sm text-center font-display font-semibold text-foreground relative z-10 transition-colors duration-300 group-hover:text-primary">
         {skill.name}
       </h3>
     </div>
