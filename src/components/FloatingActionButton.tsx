@@ -7,25 +7,25 @@ import MagneticWrapper from "@/components/MagneticWrapper";
 const socialLinks = [
   {
     icon: Github,
-    href: "https://github.com",
+    href: "https://github.com/RamezKhaled77",
     label: "GitHub",
-    color: "hover:bg-[#333] hover:text-white",
+    color: "hover:bg-[#222] hover:text-white",
   },
   {
     icon: Linkedin,
-    href: "https://linkedin.com",
+    href: "https://linkedin.com/in/ramez-khaled",
     label: "LinkedIn",
     color: "hover:bg-[#0077B5] hover:text-white",
   },
   {
     icon: Mail,
-    href: "mailto:contact@example.com",
+    href: "mailto:ramezkhaled259@gmail.com",
     label: "Email",
-    color: "hover:bg-primary hover:text-primary-foreground",
+    color: "hover:bg-primary hover:text-white",
   },
   {
     icon: Phone,
-    href: "https://wa.me/1234567890",
+    href: "https://wa.me/1022069607",
     label: "WhatsApp",
     color: "hover:bg-[#25D366] hover:text-white",
   },
@@ -87,7 +87,7 @@ const FloatingActionButton = () => {
               }}
             >
               <link.icon className="w-5 h-5" />
-              <span className="absolute right-full mr-3 px-2 py-1 text-xs font-medium bg-card border border-border rounded-md shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              <span className="absolute left-full ml-3 px-2 py-1 text-xs font-medium bg-card border border-border rounded-md shadow-md opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                 {link.label}
               </span>
             </a>
