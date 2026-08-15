@@ -15,11 +15,12 @@ const Navbar = () => {
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   useEffect(() => {
-    const mainContainer = document.querySelector(".snap-y");
+    const scroller = (document.scrollingElement ||
+      document.documentElement) as HTMLElement;
     const sectionIds = ["hero", "about", "skills", "projects", "contact"];
 
     const handleScroll = () => {
-      const scrollTop = mainContainer?.scrollTop || window.scrollY;
+      const scrollTop = scroller?.scrollTop ?? window.scrollY;
       setIsScrolled(scrollTop > 50);
 
       // Scroll-spy: detect which section is in view
@@ -45,12 +46,12 @@ const Navbar = () => {
       setActiveIndex(currentIndex);
     };
 
-    mainContainer?.addEventListener("scroll", handleScroll);
+    scroller?.addEventListener("scroll", handleScroll);
     window.addEventListener("scroll", handleScroll);
     handleScroll(); // Initial check
 
     return () => {
-      mainContainer?.removeEventListener("scroll", handleScroll);
+      scroller?.removeEventListener("scroll", handleScroll);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);

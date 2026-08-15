@@ -4,48 +4,94 @@ const ParallaxBackground = () => {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const mainContainer = document.querySelector('.snap-y');
-    
+    const scroller = (document.scrollingElement ||
+      document.documentElement) as HTMLElement;
+
+    const scrollRef = { current: 0 } as { current: number };
+    const rafRef = { id: 0 } as { id: number };
+
     const handleScroll = () => {
-      const scrollTop = mainContainer?.scrollTop || window.scrollY;
-      setScrollY(scrollTop);
+      scrollRef.current = scroller?.scrollTop ?? window.scrollY;
+      if (!rafRef.id) {
+        rafRef.id = requestAnimationFrame(() => {
+          setScrollY(scrollRef.current);
+          rafRef.id = 0;
+        });
+      }
     };
 
-    mainContainer?.addEventListener('scroll', handleScroll);
-    window.addEventListener('scroll', handleScroll);
-    
+    scroller?.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll);
+
+    const prefersReduced =
+      typeof window !== "undefined" &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) {
+      setScrollY(0);
+      return;
+    }
+
+    // initial read
+    handleScroll();
+
+    const onVisibilityChange = () => {
+      if (document.hidden) {
+        if (rafRef.id) cancelAnimationFrame(rafRef.id);
+        rafRef.id = 0;
+      } else {
+        handleScroll();
+      }
+    };
+
+    document.addEventListener("visibilitychange", onVisibilityChange);
+
     return () => {
-      mainContainer?.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('scroll', handleScroll);
+      scroller?.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleScroll);
+      if (rafRef.id) cancelAnimationFrame(rafRef.id);
+      document.removeEventListener("visibilitychange", onVisibilityChange);
     };
   }, []);
 
   const layers = [
     // Slow moving large shapes
-    { speed: 0.02, elements: [
-      { type: 'circle', size: 400, x: -5, y: 10, opacity: 0.03 },
-      { type: 'circle', size: 300, x: 80, y: 60, opacity: 0.04 },
-      { type: 'circle', size: 500, x: 60, y: 150, opacity: 0.02 },
-    ]},
+    {
+      speed: 0.02,
+      elements: [
+        { type: "circle", size: 400, x: -5, y: 10, opacity: 0.03 },
+        { type: "circle", size: 300, x: 80, y: 60, opacity: 0.04 },
+        { type: "circle", size: 500, x: 60, y: 150, opacity: 0.02 },
+      ],
+    },
     // Medium speed shapes
-    { speed: 0.05, elements: [
-      { type: 'ring', size: 200, x: 15, y: 30, opacity: 0.05 },
-      { type: 'ring', size: 150, x: 75, y: 90, opacity: 0.04 },
-      { type: 'ring', size: 180, x: 30, y: 180, opacity: 0.03 },
-    ]},
+    {
+      speed: 0.05,
+      elements: [
+        { type: "ring", size: 200, x: 15, y: 30, opacity: 0.05 },
+        { type: "ring", size: 150, x: 75, y: 90, opacity: 0.04 },
+        { type: "ring", size: 180, x: 30, y: 180, opacity: 0.03 },
+      ],
+    },
     // Fast moving small elements
-    { speed: 0.1, elements: [
-      { type: 'dot', size: 8, x: 20, y: 20, opacity: 0.3 },
-      { type: 'dot', size: 6, x: 85, y: 45, opacity: 0.25 },
-      { type: 'dot', size: 10, x: 10, y: 70, opacity: 0.2 },
-      { type: 'dot', size: 7, x: 90, y: 120, opacity: 0.3 },
-      { type: 'dot', size: 5, x: 50, y: 160, opacity: 0.25 },
-    ]},
+    {
+      speed: 0.1,
+      elements: [
+        { type: "dot", size: 8, x: 20, y: 20, opacity: 0.3 },
+        { type: "dot", size: 6, x: 85, y: 45, opacity: 0.25 },
+        { type: "dot", size: 10, x: 10, y: 70, opacity: 0.2 },
+        { type: "dot", size: 7, x: 90, y: 120, opacity: 0.3 },
+        { type: "dot", size: 5, x: 50, y: 160, opacity: 0.25 },
+      ],
+    },
     // Gradient blobs
-    { speed: 0.03, elements: [
-      { type: 'blob', size: 600, x: -20, y: 50, opacity: 0.15 },
-      { type: 'blob', size: 500, x: 70, y: 130, opacity: 0.1 },
-    ]},
+    {
+      speed: 0.03,
+      elements: [
+        { type: "blob", size: 600, x: -20, y: 50, opacity: 0.15 },
+        { type: "blob", size: 500, x: 70, y: 130, opacity: 0.1 },
+      ],
+    },
   ];
 
   return (
@@ -56,11 +102,11 @@ const ParallaxBackground = () => {
           className="absolute inset-0"
           style={{
             transform: `translateY(${-scrollY * layer.speed}px)`,
-            transition: 'transform 0.1s ease-out',
+            transition: "transform 0.1s ease-out",
           }}
         >
           {layer.elements.map((el, elIndex) => {
-            if (el.type === 'circle') {
+            if (el.type === "circle") {
               return (
                 <div
                   key={elIndex}
@@ -71,12 +117,12 @@ const ParallaxBackground = () => {
                     left: `${el.x}%`,
                     top: `${el.y}%`,
                     opacity: el.opacity,
-                    filter: 'blur(60px)',
+                    filter: "blur(60px)",
                   }}
                 />
               );
             }
-            if (el.type === 'ring') {
+            if (el.type === "ring") {
               return (
                 <div
                   key={elIndex}
@@ -91,7 +137,7 @@ const ParallaxBackground = () => {
                 />
               );
             }
-            if (el.type === 'dot') {
+            if (el.type === "dot") {
               return (
                 <div
                   key={elIndex}
@@ -106,7 +152,7 @@ const ParallaxBackground = () => {
                 />
               );
             }
-            if (el.type === 'blob') {
+            if (el.type === "blob") {
               return (
                 <div
                   key={elIndex}
@@ -117,7 +163,7 @@ const ParallaxBackground = () => {
                     left: `${el.x}%`,
                     top: `${el.y}%`,
                     opacity: el.opacity,
-                    filter: 'blur(100px)',
+                    filter: "blur(100px)",
                   }}
                 />
               );

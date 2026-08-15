@@ -169,57 +169,106 @@ const CodeIDE = () => {
   const highlightCode = (code: string) => {
     const lines = code.split("\n");
 
+    const escapeHtml = (s: string) =>
+      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
+    // Combined regex to capture tokens in order of precedence
+    const tokenRegex =
+      /(\/\/.*$)|(['"`][\s\S]*?['"`])|(<\/?)(\w+)|\b(const|let|var|export|import|from|default|if|else|key|className|root|body|fetch|Promise|now|next)\b|\b(function|async|await|return|log|for|of)\b|\b(href|rel|map|id|hero|navbar|primary|bg|filter|yield|delta)\b|\b(background|min-height|padding|justify-content|console|Date)\b/gi;
+
     return lines.map((line, idx) => {
-      // Indent Handling
       const indentMatch = line.match(/^(\s*)/);
       const indentContent = indentMatch ? indentMatch[0] : "";
       const remainingLine = line.substring(indentContent.length);
 
-      const indentHtml = indentContent.replace(/ /g, "&nbsp;");
+      const tokens: React.ReactNode[] = [];
+      let lastIndex = 0;
+      let m: RegExpExecArray | null;
+      tokenRegex.lastIndex = 0;
 
-      let h = remainingLine
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;");
+      while ((m = tokenRegex.exec(remainingLine))) {
+        if (m.index > lastIndex) {
+          tokens.push(escapeHtml(remainingLine.slice(lastIndex, m.index)));
+        }
 
-      // Syntax Highlighting
-      h = h.replace(/(\/\/.*)/g, '<span class="text-[#236dce]">$1</span>');
-      h = h.replace(
-        /(['"`].*?['"`])/g,
-        '<span class="text-[#65e07a]">$1</span>',
-      );
-      const keywords =
-        /\b(const|let|var|export|import|from|default|if|else|key|className|root|body|fetch|Promise|now|next)\b/g;
-      h = h.replace(keywords, '<span class="text-[#f734a6]">$1</span>');
-      const keywords2 = /\b(function|async|await|return|log|for|of)\b/g;
-      h = h.replace(keywords2, '<span class="text-[#6f72f7]">$1</span>');
-      const keywords3 =
-        /\b(href|rel|map|id|hero|navbar|primary|bg|filter|yield|delta)\b/g;
-      h = h.replace(keywords3, '<span class="text-[#65c6ec]">$1</span>');
-      const keywords4 =
-        /\b(background|min-height|padding|justify-content|console|Date)\b/g;
-      h = h.replace(keywords4, '<span class="text-[#14e7a1]">$1</span>');
-      h = h.replace(
-        /(&lt;\/?)(\w+)/g,
-        '$1<span class="text-[#f58325]">$2</span>',
-      );
+        if (m[1]) {
+          // comment
+          tokens.push(
+            <span key={`c-${idx}-${m.index}`} className="text-[#236dce]">
+              {escapeHtml(m[1])}
+            </span>,
+          );
+        } else if (m[2]) {
+          // string
+          tokens.push(
+            <span key={`s-${idx}-${m.index}`} className="text-[#65e07a]">
+              {escapeHtml(m[2])}
+            </span>,
+          );
+        } else if (m[3] && m[4]) {
+          // tag open/close + tag name
+          tokens.push(
+            <span key={`t1-${idx}-${m.index}`} className="text-[#f58325]">
+              {escapeHtml(m[3])}
+            </span>,
+          );
+          tokens.push(
+            <span
+              key={`t2-${idx}-${m.index}`}
+              className="text-[#f58325] font-semibold"
+            >
+              {escapeHtml(m[4])}
+            </span>,
+          );
+        } else if (m[5]) {
+          tokens.push(
+            <span key={`k1-${idx}-${m.index}`} className="text-[#f734a6]">
+              {escapeHtml(m[5])}
+            </span>,
+          );
+        } else if (m[6]) {
+          tokens.push(
+            <span key={`k2-${idx}-${m.index}`} className="text-[#6f72f7]">
+              {escapeHtml(m[6])}
+            </span>,
+          );
+        } else if (m[7]) {
+          tokens.push(
+            <span key={`k3-${idx}-${m.index}`} className="text-[#65c6ec]">
+              {escapeHtml(m[7])}
+            </span>,
+          );
+        } else if (m[8]) {
+          tokens.push(
+            <span key={`k4-${idx}-${m.index}`} className="text-[#14e7a1]">
+              {escapeHtml(m[8])}
+            </span>,
+          );
+        } else {
+          tokens.push(escapeHtml(m[0]));
+        }
+
+        lastIndex = tokenRegex.lastIndex;
+      }
+
+      if (lastIndex < remainingLine.length) {
+        tokens.push(escapeHtml(remainingLine.slice(lastIndex)));
+      }
 
       return (
         <div
           key={`${activeTab}-${idx}`}
           className="flex font-mono text-sm leading-6 min-h-[1.5rem]"
         >
-          {/* Lines Numbers */}
           <span className="w-12 shrink-0 text-right pr-4 text-white/20 select-none">
             {idx + 1}
           </span>
-
-          {/* Code */}
           <span className="whitespace-pre">
-            <span dangerouslySetInnerHTML={{ __html: indentHtml }} />
-            <span dangerouslySetInnerHTML={{ __html: h }} />
+            <span>{indentContent.replace(/ /g, "\u00A0")}</span>
+            {tokens.map((t, i) => (
+              <span key={`tok-${idx}-${i}`}>{t}</span>
+            ))}
 
-            {/* Typing Indicator */}
             {isTyping && idx === lines.length - 1 && (
               <motion.span
                 animate={{ opacity: [1, 0] }}

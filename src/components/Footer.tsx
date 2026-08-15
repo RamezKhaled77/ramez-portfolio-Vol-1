@@ -11,24 +11,21 @@ const Footer = () => {
   ];
 
   const scrollToTop = () => {
-    const mainContainer = document.querySelector('.snap-y');
-    if (mainContainer) {
-      mainContainer.scrollTo({ top: 0, behavior: 'smooth' });
-    } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    const scroller = (document.scrollingElement ||
+      document.documentElement) as HTMLElement;
+    scroller.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
     <footer className="relative bg-section-alt border-t border-card-border">
       {/* Gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-primary/5 via-transparent to-transparent pointer-events-none" />
-      
+
       <div className="container mx-auto px-6 py-12 relative z-10">
         <div className="flex flex-col items-center gap-8">
           {/* Logo & Tagline */}
           <div className="text-center">
-            <button 
+            <button
               onClick={scrollToTop}
               className="text-3xl font-display font-bold hover:text-primary transition-colors mb-2"
             >
@@ -52,7 +49,10 @@ const Footer = () => {
                   aria-label={social.label}
                   className="group relative p-3 rounded-full bg-background/50 border border-card-border hover:border-primary/50 hover:bg-primary/10 transition-all duration-300"
                 >
-                  <Icon size={18} className="text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-300" />
+                  <Icon
+                    size={18}
+                    className="text-muted-foreground group-hover:text-primary group-hover:scale-110 transition-all duration-300"
+                  />
                   <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 text-xs text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
                     {social.label}
                   </span>
@@ -66,12 +66,14 @@ const Footer = () => {
 
           {/* Bottom Section */}
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 w-full text-sm text-muted-foreground">
-            <div>
-              © {currentYear} Ramez Khaled. All rights reserved.
-            </div>
+            <div>© {currentYear} Ramez Khaled. All rights reserved.</div>
             <div className="flex items-center gap-1">
               Designed & Built with
-              <Heart size={14} className="text-primary mx-1 animate-pulse" fill="currentColor" />
+              <Heart
+                size={14}
+                className="text-primary mx-1 animate-pulse"
+                fill="currentColor"
+              />
               using React & Tailwind
             </div>
           </div>
@@ -82,7 +84,10 @@ const Footer = () => {
             className="group absolute right-6 top-1/2 -translate-y-1/2 p-3 rounded-full bg-primary/10 border border-primary/30 hover:bg-primary hover:border-primary transition-all duration-300"
             aria-label="Back to top"
           >
-            <ArrowUp size={18} className="text-primary group-hover:text-primary-foreground transition-colors" />
+            <ArrowUp
+              size={18}
+              className="text-primary group-hover:text-primary-foreground transition-colors"
+            />
           </button>
         </div>
       </div>

@@ -1,8 +1,14 @@
 import type { Config } from "tailwindcss";
+import tailwindAnimate from "tailwindcss-animate";
 
 export default {
   darkMode: ["class"],
-  content: ["./pages/**/*.{ts,tsx}", "./components/**/*.{ts,tsx}", "./app/**/*.{ts,tsx}", "./src/**/*.{ts,tsx}"],
+  content: [
+    "./pages/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./app/**/*.{ts,tsx}",
+    "./src/**/*.{ts,tsx}",
+  ],
   prefix: "",
   theme: {
     container: {
@@ -14,9 +20,9 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['Space Grotesk', 'sans-serif'],
-        body: ['Inter', 'sans-serif'],
-        quote: ['Cormorant Garamond', 'serif'],
+        display: ["Space Grotesk", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+        quote: ["Cormorant Garamond", "serif"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -29,10 +35,10 @@ export default {
         "section-alt": "hsl(var(--section-alt))",
         "card-border": "hsl(var(--card-border))",
         "card-border-hover": "hsl(var(--card-border-hover))",
-        "heading": "hsl(var(--heading-color))",
-        "subheading": "hsl(var(--subheading-color))",
-        "body": "hsl(var(--body-color))",
-        "caption": "hsl(var(--caption-color))",
+        heading: "hsl(var(--heading-color))",
+        subheading: "hsl(var(--subheading-color))",
+        body: "hsl(var(--body-color))",
+        caption: "hsl(var(--caption-color))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -121,5 +127,5 @@ export default {
       },
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindAnimate],
 } satisfies Config;
