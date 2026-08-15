@@ -1,13 +1,13 @@
-import { useState } from "react";
+import React, { useState, Suspense, lazy } from "react";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
 import Skills from "@/components/Skills";
-import DeveloperOS from "@/components/DeveloperOS";
 import Projects from "@/components/Projects";
-import CodeIDE from "@/components/CodeIDE";
+const DeveloperOS = lazy(() => import("@/components/DeveloperOS"));
+const CodeIDE = lazy(() => import("@/components/CodeIDE"));
 import DesignCode from "@/components/DesignCode";
-import ProductivityStack from "@/components/ProductivityStack";
+const ProductivityStack = lazy(() => import("@/components/ProductivityStack"));
 import Quote from "@/components/Quote";
 import Testimonials from "@/components/Testimonials";
 import Contact from "@/components/Contact";
@@ -22,7 +22,6 @@ import ScrollReveal from "@/components/ScrollReveal";
 import ScrollProgress from "@/components/ScrollProgress";
 import Preloader from "@/components/Preloader";
 import HowMyBrainWorks from "@/components/HowMyBrainWorks";
-import CodeIDETwo from "@/components/CodeIDETwo";
 
 const Index = () => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -59,7 +58,9 @@ const Index = () => {
           </section>
           <section id="developer-os">
             <ScrollReveal variant="fade-up" delay={100} duration={800}>
-              <DeveloperOS />
+              <Suspense fallback={<div className="py-12">Loading…</div>}>
+                <DeveloperOS />
+              </Suspense>
             </ScrollReveal>
           </section>
           <section id="brain">
@@ -74,7 +75,9 @@ const Index = () => {
           </section>
           <section id="code-ide">
             <ScrollReveal variant="fade-right" delay={100} duration={800}>
-              <CodeIDE />
+              <Suspense fallback={<div className="py-12">Loading…</div>}>
+                <CodeIDE />
+              </Suspense>
             </ScrollReveal>
           </section>
           <section id="design-code">
@@ -84,7 +87,9 @@ const Index = () => {
           </section>
           <section id="productivity-stack">
             <ScrollReveal variant="fade-up" delay={100} duration={800}>
-              <ProductivityStack />
+              <Suspense fallback={<div className="py-12">Loading…</div>}>
+                <ProductivityStack />
+              </Suspense>
             </ScrollReveal>
           </section>
           <section id="quote">

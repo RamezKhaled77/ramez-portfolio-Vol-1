@@ -36,18 +36,19 @@ const FloatingActionButton = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const mainContainer = document.querySelector(".snap-y");
+    const scroller = (document.scrollingElement ||
+      document.documentElement) as HTMLElement;
 
     const handleScroll = () => {
-      const scrollTop = mainContainer?.scrollTop || window.scrollY;
+      const scrollTop = scroller?.scrollTop ?? window.scrollY;
       setIsVisible(scrollTop > 300);
     };
 
-    mainContainer?.addEventListener("scroll", handleScroll);
+    scroller?.addEventListener("scroll", handleScroll);
     window.addEventListener("scroll", handleScroll);
 
     return () => {
-      mainContainer?.removeEventListener("scroll", handleScroll);
+      scroller?.removeEventListener("scroll", handleScroll);
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);

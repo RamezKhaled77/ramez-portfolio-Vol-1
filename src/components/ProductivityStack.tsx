@@ -63,7 +63,7 @@ const ProductivityStack = () => {
     label,
     color = "muted",
   }: {
-    icon: any;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     label: string;
     color?: string;
   }) => {

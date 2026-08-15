@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { ExternalLink, ArrowRight, Github } from "lucide-react";
 import { motion } from "framer-motion";
 
@@ -32,6 +32,14 @@ const ProjectCard = ({
   const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
   const [showCursor, setShowCursor] = useState(false);
 
+  // rAF refs to throttle mouse updates
+  const tiltRef = useRef({ x: 0, y: 0 });
+  const cursorRef = useRef({ x: 0, y: 0 });
+  const rafRef = useRef<number | null>(null);
+  const cursorRafRef = useRef<number | null>(null);
+  const previewRef = useRef({ x: 0, y: 0 });
+  const previewRafRef = useRef<number | null>(null);
+
   // Compact preview state
   const [previewPos, setPreviewPos] = useState({ x: 0, y: 0 });
   const [showPreview, setShowPreview] = useState(false);
@@ -48,12 +56,24 @@ const ProjectCard = ({
     const tiltX = ((y - centerY) / centerY) * -8;
     const tiltY = ((x - centerX) / centerX) * 8;
 
-    setTilt({ x: tiltX, y: tiltY });
+    tiltRef.current = { x: tiltX, y: tiltY };
+    if (rafRef.current === null) {
+      rafRef.current = requestAnimationFrame(() => {
+        setTilt(tiltRef.current);
+        rafRef.current = null;
+      });
+    }
   };
 
   const handleImageMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect();
-    setCursorPos({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+    cursorRef.current = { x: e.clientX - rect.left, y: e.clientY - rect.top };
+    if (cursorRafRef.current === null) {
+      cursorRafRef.current = requestAnimationFrame(() => {
+        setCursorPos(cursorRef.current);
+        cursorRafRef.current = null;
+      });
+    }
   };
 
   const handleMouseLeave = () => {
@@ -63,8 +83,23 @@ const ProjectCard = ({
 
   const handlePointerMove = (e: React.PointerEvent) => {
     // track global client coordinates; motion.div will animate from these
-    setPreviewPos({ x: e.clientX, y: e.clientY });
+    previewRef.current = { x: e.clientX, y: e.clientY };
+    // throttle via rAF
+    if (previewRafRef.current === null) {
+      previewRafRef.current = requestAnimationFrame(() => {
+        setPreviewPos({ x: previewRef.current.x, y: previewRef.current.y });
+        previewRafRef.current = null;
+      });
+    }
   };
+
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      if (cursorRafRef.current) cancelAnimationFrame(cursorRafRef.current);
+      if (previewRafRef.current) cancelAnimationFrame(previewRafRef.current);
+    };
+  }, []);
 
   const getProjectGradient = (imageId: string) => {
     const gradients: Record<string, string> = {
@@ -411,7 +446,20 @@ const ProjectCard = ({
 
           {/* Action Buttons */}
           <div className="flex flex-wrap gap-3 pt-2">
-            <button className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full font-medium text-sm hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20">
+            <button
+              onClick={() => {
+                const url = project.liveUrl || project.repoUrl;
+                if (url) window.open(url, "_blank", "noopener,noreferrer");
+              }}
+              aria-label={
+                project.liveUrl
+                  ? "Open live project"
+                  : project.repoUrl
+                    ? "Open project repository"
+                    : "View project"
+              }
+              className="flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground rounded-full font-medium text-sm hover:bg-primary/90 transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/20"
+            >
               <ExternalLink size={16} />
               View Project
             </button>
