@@ -4,7 +4,7 @@ import { Quote } from "lucide-react";
 import ScrollReveal from "./ScrollReveal";
 
 const Testimonials = () => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({ 
+  const [emblaRef, emblaApi] = useEmblaCarousel({
     loop: true,
     skipSnaps: false,
     align: "center",
@@ -16,45 +16,53 @@ const Testimonials = () => {
       name: "Sarah Johnson",
       role: "CEO at TechCorp",
       image: "testimonial1",
-      content: "Working with Ramez was an absolute pleasure. His attention to detail and creative approach to web development exceeded our expectations.",
+      content:
+        "Working with Ramez was an absolute pleasure. His attention to detail and creative approach to web development exceeded our expectations.",
       rating: 5,
     },
     {
       name: "Michael Chen",
       role: "Product Manager at StartupXYZ",
       image: "testimonial2",
-      content: "Ramez delivered a stunning website that perfectly captured our brand identity. The animations and user experience are top-notch!",
+      content:
+        "Ramez delivered a stunning website that perfectly captured our brand identity. The animations and user experience are top-notch!",
       rating: 5,
     },
     {
       name: "Emily Rodriguez",
       role: "Marketing Director at Creative Co",
       image: "testimonial3",
-      content: "The level of professionalism and technical expertise Ramez brought to our project was remarkable. Highly recommended!",
+      content:
+        "The level of professionalism and technical expertise Ramez brought to our project was remarkable. Highly recommended!",
       rating: 5,
     },
     {
       name: "David Thompson",
       role: "Founder at Digital Dreams",
       image: "testimonial4",
-      content: "Ramez transformed our vision into reality with clean code and beautiful design. His communication throughout the project was excellent.",
+      content:
+        "Ramez transformed our vision into reality with clean code and beautiful design. His communication throughout the project was excellent.",
       rating: 5,
     },
   ];
 
   const getTestimonialGradient = (imageId: string) => {
     const gradients: Record<string, string> = {
-      testimonial1: "linear-gradient(135deg, hsl(260, 82%, 65%), hsl(290, 82%, 65%))",
-      testimonial2: "linear-gradient(135deg, hsl(195, 92%, 62%), hsl(220, 92%, 62%))",
-      testimonial3: "linear-gradient(135deg, hsl(340, 82%, 65%), hsl(10, 82%, 65%))",
-      testimonial4: "linear-gradient(135deg, hsl(145, 70%, 60%), hsl(175, 70%, 60%))",
+      testimonial1:
+        "linear-gradient(135deg, hsl(260, 82%, 65%), hsl(290, 82%, 65%))",
+      testimonial2:
+        "linear-gradient(135deg, hsl(195, 92%, 62%), hsl(220, 92%, 62%))",
+      testimonial3:
+        "linear-gradient(135deg, hsl(340, 82%, 65%), hsl(10, 82%, 65%))",
+      testimonial4:
+        "linear-gradient(135deg, hsl(145, 70%, 60%), hsl(175, 70%, 60%))",
     };
     return gradients[imageId] || gradients.testimonial1;
   };
 
   const scrollTo = useCallback(
     (index: number) => emblaApi && emblaApi.scrollTo(index),
-    [emblaApi]
+    [emblaApi],
   );
 
   const onSelect = useCallback(() => {
@@ -82,7 +90,10 @@ const Testimonials = () => {
   }, [emblaApi, onSelect]);
 
   return (
-    <section id="testimonials" className="py-24 md:py-32 relative overflow-hidden">
+    <section
+      id="testimonials"
+      className="py-24 md:py-32 relative overflow-hidden"
+    >
       {/* Background Decoration */}
       <div className="absolute top-0 left-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl" />
       <div className="absolute bottom-0 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
@@ -99,14 +110,15 @@ const Testimonials = () => {
                 What People <span className="text-gradient">Say</span>
               </h2>
               <p className="text-lg text-muted-foreground mt-4 max-w-2xl mx-auto">
-                Don't just take my word for it - hear from clients who've experienced the quality firsthand
+                Don't just take my word for it - hear from clients who've
+                experienced the quality firsthand
               </p>
             </div>
           </ScrollReveal>
 
           {/* Carousel */}
           <ScrollReveal delay={200}>
-            <div className="relative">
+            <div className="relative py-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
               <div className="overflow-hidden" ref={emblaRef}>
                 <div className="flex gap-6">
                   {testimonials.map((testimonial, index) => (
@@ -143,9 +155,13 @@ const Testimonials = () => {
                         {/* Author Info */}
                         <div className="flex items-center gap-4">
                           {/* Avatar */}
-                          <div 
+                          <div
                             className="w-14 h-14 rounded-full transition-all duration-500 group-hover:scale-110 group-hover:rotate-6 flex items-center justify-center"
-                            style={{ background: getTestimonialGradient(testimonial.image) }}
+                            style={{
+                              background: getTestimonialGradient(
+                                testimonial.image,
+                              ),
+                            }}
                           >
                             <span className="text-2xl font-bold text-white">
                               {testimonial.name.charAt(0)}

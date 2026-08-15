@@ -169,12 +169,18 @@ const CodeIDE = () => {
   const highlightCode = (code: string) => {
     const lines = code.split("\n");
 
-    const escapeHtml = (s: string) =>
-      s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    // Keep angle brackets so they display as <> in the code preview.
+    // React will safely escape strings rendered as children, so we only
+    // need to escape ampersands to avoid accidental entity issues.
+    const escapeHtml = (s: string) => s.replace(/&/g, "&amp;");
 
-    // Combined regex to capture tokens in order of precedence
-    const tokenRegex =
-      /(\/\/.*$)|(['"`][\s\S]*?['"`])|(<\/?)(\w+)|\b(const|let|var|export|import|from|default|if|else|key|className|root|body|fetch|Promise|now|next)\b|\b(function|async|await|return|log|for|of)\b|\b(href|rel|map|id|hero|navbar|primary|bg|filter|yield|delta)\b|\b(background|min-height|padding|justify-content|console|Date)\b/gi;
+    // Use a RegExp constructed from a string to avoid TSX parsing issues
+    // (JSX can interpret `</` inside a regex literal as the start of a
+    // closing tag). The pattern and flags are the same as before.
+    const tokenRegex = new RegExp(
+      "(//.*$)|(['\"`][\\s\\S]*?['\"`])|(</?)(\\w+)([^>]*?)(\\/?>)|\\b(const|let|var|export|import|from|default|if|else|key|className|root|body|fetch|Promise|now|next)\\b|\\b(function|async|await|return|log|for|of)\\b|\\b(href|rel|map|id|hero|navbar|primary|bg|filter|yield|delta)\\b|\\b(background|min-height|padding|justify-content|console|Date)\\b",
+      "gi",
+    );
 
     return lines.map((line, idx) => {
       const indentMatch = line.match(/^(\s*)/);
@@ -206,7 +212,11 @@ const CodeIDE = () => {
             </span>,
           );
         } else if (m[3] && m[4]) {
-          // tag open/close + tag name
+          // full tag: opening/closing bracket, tag name, attributes, and closing
+          // m[3] = '<' or '</'
+          // m[4] = tag name
+          // m[5] = attributes (may be empty)
+          // m[6] = closing part including '/>' or '>' (may include '/' before >)
           tokens.push(
             <span key={`t1-${idx}-${m.index}`} className="text-[#f58325]">
               {escapeHtml(m[3])}
@@ -220,28 +230,42 @@ const CodeIDE = () => {
               {escapeHtml(m[4])}
             </span>,
           );
-        } else if (m[5]) {
-          tokens.push(
-            <span key={`k1-${idx}-${m.index}`} className="text-[#f734a6]">
-              {escapeHtml(m[5])}
-            </span>,
-          );
-        } else if (m[6]) {
-          tokens.push(
-            <span key={`k2-${idx}-${m.index}`} className="text-[#6f72f7]">
-              {escapeHtml(m[6])}
-            </span>,
-          );
+          if (m[5]) {
+            tokens.push(
+              <span key={`t5-${idx}-${m.index}`} className="text-[#9cdcfe]">
+                {escapeHtml(m[5])}
+              </span>,
+            );
+          }
+          if (m[6]) {
+            tokens.push(
+              <span key={`t6-${idx}-${m.index}`} className="text-[#f58325]">
+                {escapeHtml(m[6])}
+              </span>,
+            );
+          }
         } else if (m[7]) {
           tokens.push(
-            <span key={`k3-${idx}-${m.index}`} className="text-[#65c6ec]">
+            <span key={`k1-${idx}-${m.index}`} className="text-[#f734a6]">
               {escapeHtml(m[7])}
             </span>,
           );
         } else if (m[8]) {
           tokens.push(
-            <span key={`k4-${idx}-${m.index}`} className="text-[#14e7a1]">
+            <span key={`k2-${idx}-${m.index}`} className="text-[#6f72f7]">
               {escapeHtml(m[8])}
+            </span>,
+          );
+        } else if (m[9]) {
+          tokens.push(
+            <span key={`k3-${idx}-${m.index}`} className="text-[#65c6ec]">
+              {escapeHtml(m[9])}
+            </span>,
+          );
+        } else if (m[10]) {
+          tokens.push(
+            <span key={`k4-${idx}-${m.index}`} className="text-[#14e7a1]">
+              {escapeHtml(m[10])}
             </span>,
           );
         } else {
@@ -375,7 +399,7 @@ const CodeIDE = () => {
                 {/* Editor Area */}
                 <div
                   id="editor"
-                  className="flex-1 overflow-y-hidden overflow-x-auto py-4 custom-scrollbar"
+                  className="flex-1 overflow-y-hidden overflow-x-auto py-4 custom-scrollbar text-white"
                 >
                   {highlightCode(displayedCode)}
                 </div>

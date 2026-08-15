@@ -23,7 +23,7 @@ const Skills = () => {
       isCore: true,
     },
   ];
-  
+
   // Supporting skills
   const supportingSkills = [
     {
@@ -70,10 +70,13 @@ const Skills = () => {
   const duplicatedSkills = [...skills, ...skills];
 
   return (
-    <section id="skills" className="py-24 md:py-32 bg-section-alt relative overflow-hidden">
+    <section
+      id="skills"
+      className="py-24 md:py-32 bg-section-alt relative overflow-hidden"
+    >
       {/* Subtle top divider */}
       <div className="absolute top-0 left-0 right-0 section-divider" />
-      
+
       {/* Decorative Background */}
       <div className="absolute top-0 left-0 w-full h-full opacity-5">
         <div className="absolute top-20 left-20 w-96 h-96 bg-primary rounded-full blur-3xl" />
@@ -91,7 +94,7 @@ const Skills = () => {
               <h2 className="text-4xl md:text-6xl font-display font-bold text-heading">
                 My <span className="text-gradient">Skills</span>
               </h2>
-              
+
               {/* Core Skills Highlight */}
               <div className="mt-8 flex flex-wrap justify-center gap-3">
                 {coreSkills.map((skill) => (
@@ -99,34 +102,49 @@ const Skills = () => {
                     key={skill.name}
                     className="px-5 py-2.5 rounded-full border-2 border-primary/40 bg-primary/10 flex items-center gap-2 hover:bg-primary/15 hover:border-primary/50 transition-colors"
                   >
-                    <div className="w-3 h-3 rounded-full" style={{ backgroundColor: skill.color }} />
-                    <span className="font-semibold text-primary">{skill.name}</span>
+                    <div
+                      className="w-3 h-3 rounded-full"
+                      style={{ backgroundColor: skill.color }}
+                    />
+                    <span className="font-semibold text-primary">
+                      {skill.name}
+                    </span>
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-muted-foreground mt-4">Core Specializations</p>
+              <p className="text-sm text-muted-foreground mt-4">
+                Core Specializations
+              </p>
             </div>
           </ScrollReveal>
 
           {/* Double Row Infinite Scroll Container */}
-          <div className="relative overflow-hidden py-8 space-y-6">
+          <div className="relative overflow-hidden py-8 space-y-6 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
             {/* Left gradient fade */}
             <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-section-alt to-transparent z-10" />
-            
+
             {/* First Row - Scrolling Right */}
-            <div className="flex gap-4 animate-scroll-x">
+            <div className="flex gap-4 animate-scroll-x ">
               {duplicatedSkills.map((skill, index) => (
-                <SkillCard key={`row1-${skill.name}-${index}`} skill={skill} index={index} />
+                <SkillCard
+                  key={`row1-${skill.name}-${index}`}
+                  skill={skill}
+                  index={index}
+                />
               ))}
             </div>
-            
+
             {/* Second Row - Scrolling Left */}
             <div className="flex gap-4 animate-scroll-x-reverse">
               {duplicatedSkills.map((skill, index) => (
-                <SkillCard key={`row2-${skill.name}-${index}`} skill={skill} index={index} />
+                <SkillCard
+                  key={`row2-${skill.name}-${index}`}
+                  skill={skill}
+                  index={index}
+                />
               ))}
             </div>
-            
+
             {/* Right gradient fade */}
             <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-section-alt to-transparent z-10" />
           </div>
