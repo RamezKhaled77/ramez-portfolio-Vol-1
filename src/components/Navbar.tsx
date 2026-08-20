@@ -130,10 +130,15 @@ const Navbar = () => {
           <ThemeToggle />
 
           <Button
-            onClick={() => window.open("/RamezKhaled_CV.pdf", "_blank")}
+            asChild
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium rounded-full"
           >
-            Download CV
+            <a
+              href="/Ramez-Khaled-Attia-lst.pdf"
+              download="Ramez-Khaled-Attia-CV.pdf"
+            >
+              Download CV
+            </a>
           </Button>
         </div>
 
@@ -167,10 +172,15 @@ const Navbar = () => {
             <ThemeToggle />
           </div>
           <Button
-            onClick={() => window.open("/RamezKhaled_CV.pdf", "_blank")}
+            asChild
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium w-full rounded-full"
           >
-            Download CV
+            <a
+              href="/Ramez-Khaled-Attia-lst.pdf"
+              download="Ramez-Khaled-Attia-CV.pdf"
+            >
+              Download CV
+            </a>
           </Button>
         </div>
       )}

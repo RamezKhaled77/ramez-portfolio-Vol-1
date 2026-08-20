@@ -114,7 +114,7 @@ const Contact = () => {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground font-medium text-lg px-8 py-6"
                 onClick={() =>
-                  (window.location.href = "mailto:ramez@example.com")
+                  (window.location.href = "mailto:ramezkhaled259@gmail.com")
                 }
               >
                 Send Me an Email
