@@ -1,0 +1,189 @@
+[
+  {
+    "title": "Ashiaa Store",
+    "context": "A clean, minimalist online bookstore and stationery platform built for real active users",
+    "problem": "Traditional online bookstores often suffer from cluttered interfaces, inconsistent typography, and poor component reusability, leading to low user retention and sluggish navigation.",
+    "approach": "Architected a minimalist front-end using Atomic Design methodology with a strict design system, reusable component architecture, and Arabic-first typography tailored for custom stationery and books.",
+    "tech": [
+      "React.js",
+      "JavaScript (ES6+)",
+      "Tailwind CSS",
+      "Atomic Design",
+      "Supabase"
+    ],
+    "image": "ashiaa-store",
+    "liveUrl": "https://ashiaa-store.vercel.app/",
+    "repoUrl": "https://github.com/Texon-io/ashiaa-store",
+    "decisions": {
+      "title": "Ashiaa Store (متجر أشياء)",
+      "context": "As Texon's flagship production project, this e-commerce platform required a robust design system and component architecture capable of handling active users while serving as a scalable foundation for future Texon web applications.",
+      "decisions": [
+        {
+          "title": "Atomic Design Methodology",
+          "why": "Organized the codebase into atoms, molecules, and organisms to guarantee high reusability and maintain strict design system compliance across all pages.",
+          "alternatives": "Standard flat component folder structure without strict modular hierarchy."
+        },
+        {
+          "title": "Custom Arabic Typography System",
+          "why": "Paired 'Aref Ruqaa' for elegant headers with 'Tajawal' for clean UI body text to deliver an authentic, highly readable Arabic e-commerce aesthetic.",
+          "alternatives": "Generic system fonts or single-font implementation."
+        },
+        {
+          "title": "Proprietary Color System Variables",
+          "why": "Established dedicated accent hues (#CEB597, #724742) to enforce visual consistency and streamline theme maintenance across all interactive components.",
+          "alternatives": "Hardcoded utility colors or unstructured CSS values."
+        }
+      ],
+      "tradeoffs": [
+        {
+          "gained": "Unmatched component reusability and seamless design consistency across the entire storefront.",
+          "sacrificed": "Higher initial setup time spent establishing the design system tokens and atomic architecture before writing feature code."
+        },
+        {
+          "gained": "Enhanced user engagement and brand recognition through customized Arabic-first typography.",
+          "sacrificed": "Additional custom web font rendering overhead requiring optimization for initial page loads."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Design System Enforcement",
+          "description": "Maintaining strict adherence to custom color scales, spacing, and atomic hierarchies across diverse product categories (books, office supplies, stationery) without code duplication."
+        },
+        {
+          "title": "RTL & Arabic UI Layouts",
+          "description": "Ensuring responsive, accessible, and visual harmony in Right-to-Left (RTL) navigation while maintaining clean visual symmetry across varied screen sizes."
+        }
+      ],
+      "improvements": [
+        "Migrate to Next.js App Router for Server-Side Rendering (SSR) to boost SEO and product indexing.",
+        "Integrate automated UI component testing using Storybook and Jest.",
+        "Implement dynamic search auto-suggestions and advanced multi-category filters."
+      ]
+    }
+  },
+  {
+    "title": "StoreIt - Storage Management Platform",
+    "context": "Modern cloud file management & sharing platform with dynamic storage analytics",
+    "problem": "Users struggle with fragmented file management systems that lack intuitive search, unified media previewing, and real-time storage usage breakdowns.",
+    "approach": "Built a full-stack file storage management application leveraging Next.js 15 App Router and Appwrite BaaS, featuring secure multi-format file uploads, dynamic global search, and instant file sharing.",
+    "tech": [
+      "Next.js 15",
+      "React 19",
+      "TypeScript",
+      "Appwrite",
+      "Tailwind CSS",
+      "ShadCN UI"
+    ],
+    "image": "storeit",
+    "liveUrl": "https://storage-management-n0vo4xw7x-ramezs-projects-7921dfe2.vercel.app",
+    "repoUrl": "https://github.com/RamezKhaled77/storage-management-app",
+    "decisions": {
+      "title": "StoreIt - Storage Management",
+      "context": "This platform required handling multi-format file uploads, secure access permissions, and dynamic storage aggregation while delivering a lightning-fast responsive interface using the latest React 19 and Next.js 15 features.",
+      "decisions": [
+        {
+          "title": "Appwrite BaaS for Backend & Storage",
+          "why": "Utilized Appwrite for streamlined user authentication, bucket storage management, and database queries without managing complex server infrastructure.",
+          "alternatives": "Custom Node.js/Express backend with AWS S3 integration or Firebase."
+        },
+        {
+          "title": "Next.js 15 App Router Architecture",
+          "why": "Leveraged Server Components and Server Actions for optimal data fetching, improved security around API keys, and faster initial page loads.",
+          "alternatives": "Pages Router or client-side single-page application (SPA)."
+        },
+        {
+          "title": "ShadCN UI & Tailwind CSS Design System",
+          "why": "Allowed rapid construction of accessible, highly customized dashboard components and data visualization layouts with minimal CSS bundle size.",
+          "alternatives": "Heavy monolithic UI frameworks like Material UI or Ant Design."
+        }
+      ],
+      "tradeoffs": [
+        {
+          "gained": "Rapid full-stack development velocity and built-in security for authentication and bucket permissions via Appwrite.",
+          "sacrificed": "Less flexibility for custom deep database queries compared to a raw PostgreSQL/Prisma ORM backend."
+        },
+        {
+          "gained": "Bleeding-edge performance and developer experience using React 19 and Next.js 15 capabilities.",
+          "sacrificed": "Potential edge-case framework bugs due to using newly released major versions."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Dynamic Storage Breakdown Aggregation",
+          "description": "Calculating and categorizing consumed vs. remaining storage in real time across multiple file formats (documents, images, videos, audio) without impacting dashboard load times."
+        },
+        {
+          "title": "Global Search & Client-Side Filtering",
+          "description": "Implementing seamless cross-platform file searching and instant sorting (by date, name, or size) across dynamic dataset queries."
+        }
+      ],
+      "improvements": [
+        "Add drag-and-drop file upload queues with progress indicators for large files.",
+        "Implement granular file permission controls (read-only vs. edit access for shared links).",
+        "Integrate automated image compression before Appwrite bucket storage upload."
+      ]
+    }
+  },
+  {
+    "title": "Texon Official Portfolio",
+    "context": "A minimalist, high-performance agency showcase built with modular React architecture",
+    "problem": "Agency portfolios often suffer from bloated codebases, slow page loads, and tangled section logic, leading to difficult maintenance and poor visual performance.",
+    "approach": "Engineered a lightning-fast, ultra-clean web experience using React + Vite and Tailwind CSS, enforced with a strict modular folder architecture separating UI tokens, layout components, and section logic.",
+    "tech": [
+      "React.js",
+      "Vite",
+      "Tailwind CSS",
+      "JavaScript (ES6+)",
+      "pnpm"
+    ],
+    "image": "texon-agency",
+    "liveUrl": "texon-io-dev.netlify.app/",
+    "repoUrl": "https://github.com/Texon-io/Texon-website",
+    "decisions": {
+      "title": "Texon Agency Platform",
+      "context": "As the primary digital storefront for Texon software agency, this project needed to showcase elite engineering standards, sub-second load times, and a future-proof architecture for expanding client case studies.",
+      "decisions": [
+        {
+          "title": "Vite + React Bundling Architecture",
+          "why": "Chosen over heavy full-stack frameworks to achieve instant HMR during development and minimal production bundle footprint for sub-second page loads.",
+          "alternatives": "Standard Create React App or Next.js static site generation."
+        },
+        {
+          "title": "Strict Modular Folder Architecture",
+          "why": "Organized the codebase into distinct layers (`components/layout`, `components/ui`, `sections/`, `helpers/`) to keep pure utility functions isolated from UI rendering and maximize code maintainability.",
+          "alternatives": "Flat component structure or feature-based grouping without layer boundaries."
+        },
+        {
+          "title": "Custom Logic Helpers & SEO Wrappers",
+          "why": "Abstracted analytics, meta tags, and data fetching into dedicated helper modules (`/helpers`) to enforce consistent SEO defaults and DRY clean code standards across all pages.",
+          "alternatives": "Inline meta tags and repeated fetching logic directly inside page components."
+        }
+      ],
+      "tradeoffs": [
+        {
+          "gained": "Blazing fast initial load speed, zero runtime overhead, and a clean codebase that scales seamlessly for new team members.",
+          "sacrificed": "No built-in Server-Side Rendering (SSR) out of the box compared to Next.js."
+        },
+        {
+          "gained": "Strict separation of concerns where UI updates never leak into helper or utility logic.",
+          "sacrificed": "Slightly higher overhead when organizing initial project folder structures and routing setups."
+        }
+      ],
+      "challenges": [
+        {
+          "title": "Scalable Section & UI Component Isolation",
+          "description": "Structuring complex section layouts into self-contained subcomponent folders without creating circular dependencies or component duplication."
+        },
+        {
+          "title": "Global State & SEO Configuration",
+          "description": "Managing centralized route constants, global color variables, and dynamic metadata across dynamic client showcase routes cleanly."
+        }
+      ],
+      "improvements": [
+        "Implement dynamic page transitions and interactive micro-animations using Framer Motion.",
+        "Add interactive case study previews with dynamic filtering by service category.",
+        "Integrate automated lighthouse performance auditing into the CI/CD deployment pipeline."
+      ]
+    }
+  }
+]

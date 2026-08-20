@@ -222,7 +222,7 @@ const ProjectDecisionModal = ({
               <motion.section variants={itemVariants}>
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-9 h-9 rounded-lg bg-accent/20 flex items-center justify-center">
-                    <Scale size={18} className="text-accent-foreground" />
+                    <Scale size={18} className="text-destructive" />
                   </div>
                   <h3 className="text-sm font-medium tracking-widest uppercase text-muted-foreground">
                     Trade-offs

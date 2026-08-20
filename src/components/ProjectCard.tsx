@@ -101,6 +101,16 @@ const ProjectCard = ({
     };
   }, []);
 
+  const getProjectImageSrc = (imageId: string) => {
+    const images: Record<string, string> = {
+      "ashiaa-store": "/images/projects/ashiaa-store.png",
+      storeit: "/images/projects/storeit.png",
+      "texon-agency": "/images/projects/texon-agency.png",
+    };
+    return images[imageId] || "/images/projects/placeholder.jpg";
+  };
+
+  // Gradient helper for fallback and accent color effects
   const getProjectGradient = (imageId: string) => {
     const gradients: Record<string, string> = {
       project1: "linear-gradient(135deg, hsl(14, 90%, 53%), hsl(21, 90%, 48%))",
@@ -235,10 +245,18 @@ const ProjectCard = ({
             // smoother spring for a gentle, non-snappy follow
             transition={{ type: "spring", stiffness: 250, damping: 30 }}
           >
-            <div
-              className="w-44 h-28 rounded-md overflow-hidden border border-border/30 shadow-2xl"
-              style={{ background: getProjectGradient(project.image) }}
-            />
+            <div className="w-44 h-28 rounded-md overflow-hidden border border-border/30 shadow-2xl">
+              <img
+                src={getProjectImageSrc(project.image)}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/images/projects/placeholder.jpg";
+                }}
+              />
+            </div>
           </motion.div>
         </div>
       </motion.div>
@@ -335,14 +353,24 @@ const ProjectCard = ({
               </div>
             )}
 
-            {/* Background Gradient */}
+            {/* Project Image */}
             <div
-              className="absolute inset-0 rounded-2xl"
+              className="absolute inset-0 rounded-2xl overflow-hidden"
               style={{
-                background: getProjectGradient(project.image),
                 cursor: showCursor ? "none" : "pointer",
               }}
-            />
+            >
+              <img
+                src={getProjectImageSrc(project.image)}
+                alt={project.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={(e) => {
+                  const target = e.target as HTMLImageElement;
+                  target.src = "/images/projects/placeholder.jpg";
+                }}
+              />
+            </div>
 
             {/* Holographic Overlay */}
             <div className="absolute inset-0 bg-gradient-to-br from-white/20 via-transparent to-black/30" />
