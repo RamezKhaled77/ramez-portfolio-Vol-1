@@ -119,12 +119,12 @@ const Testimonials = () => {
           {/* Carousel */}
           <ScrollReveal delay={200}>
             <div className="relative py-4 [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
-              <div className="overflow-hidden" ref={emblaRef}>
+              <div className="overflow-hiddenpy-2" ref={emblaRef}>
                 <div className="flex gap-6">
                   {testimonials.map((testimonial, index) => (
                     <div
                       key={testimonial.name}
-                      className="flex-[0_0_100%] md:flex-[0_0_80%] lg:flex-[0_0_60%] min-w-0 px-2"
+                      className={`flex-[0_0_100%] md:flex-[0_0_80%] lg:flex-[0_0_60%] min-w-0 px-2 cursor-grabbing ${index === testimonials.length - 1 ? "mr-6" : ""}`}
                     >
                       <div className="glass-card rounded-2xl p-8 md:p-10 h-full transition-all duration-500 hover:shadow-2xl hover:scale-[1.02] group">
                         {/* Quote Icon */}

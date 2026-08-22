@@ -65,17 +65,8 @@ const Footer = () => {
           <div className="w-full max-w-xs h-px bg-gradient-to-r from-transparent via-border to-transparent" />
 
           {/* Bottom Section */}
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 w-full text-sm text-muted-foreground">
+          <div className="flex items-center justify-center gap-4 w-full text-sm text-muted-foreground">
             <div>© {currentYear} Ramez Khaled. All rights reserved.</div>
-            <div className="flex items-center gap-1">
-              Designed & Built with
-              <Heart
-                size={14}
-                className="text-primary mx-1 animate-pulse"
-                fill="currentColor"
-              />
-              using React & Tailwind
-            </div>
           </div>
 
           {/* Back to Top Button */}

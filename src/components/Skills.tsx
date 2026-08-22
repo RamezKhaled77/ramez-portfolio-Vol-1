@@ -13,7 +13,7 @@ const Skills = () => {
     {
       name: "JavaScript",
       icon: "javascript",
-      color: "hsl(53, 93%, 54%)",
+      color: "hsl(53, 93%, 55%)",
       isCore: true,
     },
     {
