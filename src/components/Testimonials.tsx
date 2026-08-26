@@ -13,35 +13,19 @@ const Testimonials = () => {
 
   const testimonials = [
     {
-      name: "Sarah Johnson",
-      role: "CEO at TechCorp",
+      name: "Ahmed Abdulazim",
+      role: "Backend Developer",
       image: "testimonial1",
       content:
-        "Working with Ramez was an absolute pleasure. His attention to detail and creative approach to web development exceeded our expectations.",
+        "I'm thrilled to work with Ramez he is truly a highly professional person and completes all his tasks on time.",
       rating: 5,
     },
     {
-      name: "Michael Chen",
-      role: "Product Manager at StartupXYZ",
+      name: "Abdulrahman Abo zeid",
+      role: "Frontend Developer",
       image: "testimonial2",
       content:
-        "Ramez delivered a stunning website that perfectly captured our brand identity. The animations and user experience are top-notch!",
-      rating: 5,
-    },
-    {
-      name: "Emily Rodriguez",
-      role: "Marketing Director at Creative Co",
-      image: "testimonial3",
-      content:
-        "The level of professionalism and technical expertise Ramez brought to our project was remarkable. Highly recommended!",
-      rating: 5,
-    },
-    {
-      name: "David Thompson",
-      role: "Founder at Digital Dreams",
-      image: "testimonial4",
-      content:
-        "Ramez transformed our vision into reality with clean code and beautiful design. His communication throughout the project was excellent.",
+        "I really enjoyed working with Ramez on the El3ba project. He’s a reliable, collaborative, and dedicated teammate who always brings a positive attitude and gets things done. I’d definitely recommend working with him.",
       rating: 5,
     },
   ];
