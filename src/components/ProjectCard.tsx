@@ -156,45 +156,35 @@ const ProjectCard = ({
           onPointerMove={handlePointerMove}
           onPointerEnter={() => setShowPreview(true)}
           onPointerLeave={() => setShowPreview(false)}
-          className="w-full grid grid-cols-[64px_1fr_48px] items-center gap-4 px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 bg-card hover:bg-primary/90 group border border-border/50 hover:border-primary/30 duration-300"
+          className="w-full flex items-center gap-2 md:gap-4 px-3 md:px-4 py-3 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary/30 bg-card hover:bg-primary/90 group border border-border/50 hover:border-primary/30 duration-300"
         >
           {/* Number */}
-          <div className="text-sm font-medium text-muted-foreground text-right pr-3 transition-colors group-hover:text-background">
+          <div className="w-8 md:w-16 shrink-0 text-[10px] md:text-sm font-medium text-muted-foreground text-right md:pr-3 transition-colors group-hover:text-background">
             0{index + 1}
           </div>
 
-          {/* Title + context (hidden meta on mobile) */}
-          <div className="min-w-0">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-base font-medium text-foreground transition-colors group-hover:text-background truncate">
-                  {project.title}
-                </div>
-                <div className="text-sm font-medium text-muted-foreground transition-colors group-hover:text-background/80 truncate md:block hidden">
-                  {project.context}
-                </div>
-              </div>
-              {/* Desktop meta area: show on md+ */}
-              <div className="hidden md:flex md:items-center md:gap-4 md:ml-4">
-                <div className="text-sm text-muted-foreground transition-colors group-hover:text-background/80">
-                  {/* placeholder meta */}
-                </div>
-              </div>
+          {/* Title + context */}
+          <div className="min-w-0 flex-1">
+            <div className="text-sm md:text-base font-medium text-foreground transition-colors group-hover:text-background truncate">
+              {project.title}
+            </div>
+            <div className="hidden md:block text-sm font-medium text-muted-foreground transition-colors group-hover:text-background/80 truncate">
+              {project.context}
             </div>
           </div>
 
-          {/* Action arrow */}
-          <div className="flex items-center justify-end space-x-5">
+          {/* Action icons */}
+          <div className="ml-auto flex shrink-0 items-center justify-end gap-1 md:gap-2">
             {project.liveUrl && (
               <a
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground transition-colors group-hover:text-background"
+                className="inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-md text-muted-foreground transition-colors group-hover:text-background"
                 aria-label="Open live preview"
               >
-                <ExternalLink size={16} />
+                <ExternalLink size={14} className="md:w-4 md:h-4" />
               </a>
             )}
 
@@ -204,17 +194,17 @@ const ProjectCard = ({
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="inline-flex items-center justify-center w-8 h-8 rounded-md text-muted-foreground transition-colors group-hover:text-background"
+                className="inline-flex items-center justify-center w-7 h-7 md:w-8 md:h-8 rounded-md text-muted-foreground transition-colors group-hover:text-background"
                 aria-label="Open source repository"
               >
-                <Github size={16} />
+                <Github size={14} className="md:w-4 md:h-4" />
               </a>
             )}
 
-            <div>
+            <div className="inline-flex items-center justify-center">
               <ArrowRight
-                size={16}
-                className="text-muted-foreground transition-colors group-hover:text-background"
+                size={14}
+                className="md:w-4 md:h-4 text-muted-foreground transition-colors group-hover:text-background"
               />
             </div>
           </div>
