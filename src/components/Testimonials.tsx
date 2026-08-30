@@ -21,9 +21,17 @@ const Testimonials = () => {
       rating: 5,
     },
     {
+      name: "Abdulrahman Saad",
+      role: "Full Stack Developer",
+      image: "testimonial2",
+      content:
+        "It was a great pleasure working with Ramez. He is extremely detail-oriented and tackles every bug head-on until it’s resolved. He consistently delivers high-quality, polished work with an impressive level of accuracy and attention to detail.",
+      rating: 5,
+    },
+    {
       name: "Abdulrahman Abo zeid",
       role: "Frontend Developer",
-      image: "testimonial2",
+      image: "testimonial3",
       content:
         "I really enjoyed working with Ramez on the El3ba project. He’s a reliable, collaborative, and dedicated teammate who always brings a positive attitude and gets things done. I’d definitely recommend working with him.",
       rating: 5,
