@@ -75,7 +75,7 @@
       "ShadCN UI"
     ],
     "image": "storeit",
-    "liveUrl": "https://storage-management-n0vo4xw7x-ramezs-projects-7921dfe2.vercel.app",
+    "liveUrl": "https://storage-management-app-puce.vercel.app",
     "repoUrl": "https://github.com/RamezKhaled77/storage-management-app",
     "decisions": {
       "title": "StoreIt - Storage Management",
@@ -129,13 +129,7 @@
     "context": "A minimalist, high-performance agency showcase built with modular React architecture",
     "problem": "Agency portfolios often suffer from bloated codebases, slow page loads, and tangled section logic, leading to difficult maintenance and poor visual performance.",
     "approach": "Engineered a lightning-fast, ultra-clean web experience using React + Vite and Tailwind CSS, enforced with a strict modular folder architecture separating UI tokens, layout components, and section logic.",
-    "tech": [
-      "React.js",
-      "Vite",
-      "Tailwind CSS",
-      "JavaScript (ES6+)",
-      "pnpm"
-    ],
+    "tech": ["React.js", "Vite", "Tailwind CSS", "JavaScript (ES6+)", "pnpm"],
     "image": "texon-agency",
     "liveUrl": "texon-io-dev.netlify.app/",
     "repoUrl": "https://github.com/Texon-io/Texon-website",
